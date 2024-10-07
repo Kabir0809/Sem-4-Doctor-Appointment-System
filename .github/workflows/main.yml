@@ -26,17 +26,17 @@ jobs:
 
       - name: Install Backend dependencies
         run: |
-          npm install
+          npm install  # This installs the backend dependencies
 
       - name: Install Frontend dependencies
         run: |
-          cd client
-          npm install
+          cd client  # Change to the client directory
+          npm install  # Install frontend dependencies
 
       - name: Build Frontend
         run: |
-          cd client  # Corrected from frontend to client
-          npm run build
+          cd client  # Ensure this is the correct path to the client
+          npm run build  # Build the React app
 
       - name: Test Backend
         run: |
@@ -48,4 +48,4 @@ jobs:
 
       - name: Deploy Backend
         run: |
-          npm start  # Ensure your start command is appropriate for production
+          npm start  # Start the backend server
