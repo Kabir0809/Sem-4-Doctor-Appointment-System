@@ -1,0 +1,53 @@
+name: Deploy MERN App to Cloud Runner
+
+on:
+  push:
+    branches:
+      - main  # Runs the workflow on pushes to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest  # Use GitHub's cloud runner on Ubuntu
+
+    services:
+      mongodb:  # Set up a MongoDB service for testing (if required)
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Adjust Node.js version as needed
+
+      - name: Install dependencies for Backend
+        run: |
+          cd backend
+          npm install
+
+      - name: Install dependencies for Frontend
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Test Backend
+        run: |
+          cd backend
+          npm test
+
+      - name: Deploy Backend
+        run: |
+          cd backend
+          npm start
+      - name: Set environment variables
+        run: |
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> $GITHUB_ENV
