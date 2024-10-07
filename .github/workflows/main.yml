@@ -1,4 +1,4 @@
-name: Deploy MERN App to Cloud Runner
+  name: Deploy MERN App to Cloud Runner
 
 on:
   push:
@@ -24,14 +24,13 @@ jobs:
         with:
           node-version: '16'  # Adjust Node.js version as needed
 
-      - name: Install dependencies for Backend
+      - name: Install Backend dependencies
         run: |
-          cd backend
           npm install
 
-      - name: Install dependencies for Frontend
+      - name: Install Frontend dependencies
         run: |
-          cd frontend
+          cd client
           npm install
 
       - name: Build Frontend
