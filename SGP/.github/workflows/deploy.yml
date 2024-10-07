@@ -48,3 +48,8 @@ jobs:
         run: |
           cd backend
           npm start
+
+      - name: Set environment variables
+        run: |
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> $GITHUB_ENV
+
