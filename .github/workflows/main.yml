@@ -1,4 +1,4 @@
-  name: Deploy MERN App to Cloud Runner
+name: Deploy MERN App to Cloud Runner
 
 on:
   push:
@@ -35,18 +35,17 @@ jobs:
 
       - name: Build Frontend
         run: |
-          cd frontend
+          cd client  # Corrected from frontend to client
           npm run build
 
       - name: Test Backend
         run: |
-          cd backend
-          npm test
+          npm test  # Assumes test scripts are configured in root package.json
 
-      - name: Deploy Backend
-        run: |
-          cd backend
-          npm start
       - name: Set environment variables
         run: |
           echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> $GITHUB_ENV
+
+      - name: Deploy Backend
+        run: |
+          npm start  # Ensure your start command is appropriate for production
